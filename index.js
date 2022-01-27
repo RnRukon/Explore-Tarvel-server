@@ -87,6 +87,24 @@ async function run() {
             res.json({ admin: isAmin })
         })
 
+        // approve api-------------------
+        app.put("/approve/:id", async (req, res) => {
+            const id = req.params.id;
+            const role = req.body.role;
+            console.log(role)
+            const filter = { _id: ObjectId(id) };
+            await travelsCollection.updateOne(filter, {
+                $set: {
+                    role: role,
+
+                },
+            })
+                .then((result) => {
+                    res.send(result);
+                });
+
+        });
+
         // save to database user --------------
         app.post('/users', async (req, res) => {
             const user = req.body;
