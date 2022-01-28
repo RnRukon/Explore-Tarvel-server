@@ -44,6 +44,13 @@ async function run() {
             const travel = await travelsCollection.findOne(query)
             res.send(travel)
         })
+        // email get my post==============================================
+        app.get('/myPost/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email }
+            const myPost = await travelsCollection.find(query).toArray();
+            res.send(myPost)
+        })
         // update travel-------------------
         app.put("/UpdateTravelsFrom/:id", async (req, res) => {
             const id = req.params.id;
@@ -59,7 +66,8 @@ async function run() {
                     category: updateTravel?.category,
                     info: updateTravel?.info,
                     address: updateTravel?.address,
-                    rating: updateTravel?.rating
+                    rating: updateTravel?.rating,
+                    role: updateTravel?.role
                 },
             })
                 .then((result) => {
